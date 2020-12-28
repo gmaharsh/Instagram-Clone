@@ -37,6 +37,7 @@
 }
 
 .signup__form > form > button{
+    align-items: center;
     width: 260px;
     height: 30px;
     border-radius: 5px;
