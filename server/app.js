@@ -8,6 +8,7 @@ const { MONGO_URI } = require('./keys')
 
 //Middlwares
 require('./models/user');
+require('./models/post');
 app.use(express.json())
 
 //Database Connection
@@ -15,18 +16,23 @@ const connection_url = `mongodb+srv://gmaharsh:Maharsh@1997@cluster0.9gzq7.mongo
 mongoose.connect(connection_url, {
     useUnifiedTopology: true,
     useNewUrlParser: true
-})
-    .then(() => {
+}).then(() => {
         console.log("Connected to Database")
     })
     .catch((error) => {
         console.log("Error:-",error)
-    })
+})
 
 //Routes Imports
-const auth  =  require('./routes/auth')
+const auth = require('./routes/auth')
+const post = require('./routes/post')
+
+
+
 //Routes
-app.use("/",auth)
+app.use("/", auth)
+app.use("/", post)
+
 
 //Listener
 app.listen(PORT, () => {
