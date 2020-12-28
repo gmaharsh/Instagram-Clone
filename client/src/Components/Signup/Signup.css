@@ -1,0 +1,52 @@
+.signup{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.signup__form{
+    border: 1px solid black;
+    margin-bottom: 20px;
+    width: 30vh;
+    padding: 0 auto;
+}
+
+.signup__form > h1{
+    font-family: 'Grand Hotel', cursive;
+    font-weight: 500;
+    margin: 10px 30px;
+    font-size: 60px;
+}
+
+.signup__form > h4{
+    text-align: center;
+    color: gray;
+    margin: 20px 20px;
+}
+
+
+.signup__form > form > input{
+    width: 250px;
+    height: 30px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    border: 1px solid gray;
+    background-color: #eeeeee;
+    padding: 5px;
+}
+
+.signup__form > form > button{
+    width: 260px;
+    height: 30px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    border: none;
+    background-color:#0095f6;
+    padding: 5px;
+}
+
+.login__form{
+    align-items: center;
+    padding: 30px 90px;
+}

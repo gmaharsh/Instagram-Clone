@@ -9,7 +9,7 @@ import Profile from './Components/Profile/Profile';
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="app">
         <Switch>
           <Route path="/login">
             <Login />

@@ -26,7 +26,7 @@ function Login() {
                 </div>
                 <div className="signup__form">
                     <p>Don't have account?
-                        <Link>
+                        <Link to="/signup">
                             <span>Sign up</span>
                         </Link>
                     </p>

@@ -57,17 +57,25 @@
     cursor: pointer;
 }
 
-.signup__form{
+/* .signup__form{
     display: flex;
     align-items: center;
-    /* text-align: center; */
+    text-align: center;
     border: 1px solid black;
     margin-top: 20px;
-    /* padding: 60px; */
+    padding: 60px;
     padding: 20px 100px;
+} */
+
+.signup__form{
+    justify-content: center;
+    border: 1px solid black;
+    margin-top: 20px;
+    padding: 30px 120px;
 }
 
 span{
+    /* padding-right: 20px; */
     margin-left: 10px;
     color: #1589ff;
     outline: none;
