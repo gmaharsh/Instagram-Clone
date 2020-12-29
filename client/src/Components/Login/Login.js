@@ -21,6 +21,8 @@ function Login() {
         }).then(res => res.json())
             .then(data => {
                 if (data) {
+                    localStorage.setItem("jwt", data.token)
+                    localStorage.setItem("user",JSON.stringify(data.user))
                     console.log(data)
                     history.push("/")
                 } else {
