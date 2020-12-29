@@ -1,8 +1,34 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import './Login.css';
 
 function Login() {
+    const history = useHistory();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const getData = (e) => {
+        e.preventDefault()
+        fetch("/signin", {
+            method: "POST",
+            headers: {
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify({
+                password,
+                email,
+            })
+        }).then(res => res.json())
+            .then(data => {
+                if (data) {
+                    console.log(data)
+                    history.push("/")
+                } else {
+                    history.push("/")
+                }
+        }).catch(error => console.log(error))
+    }
+
     return (
         <div className="login">
             <div className="login__image">
@@ -13,14 +39,18 @@ function Login() {
                     <h1>Instagram</h1>
                     <form>
                         <input
-                            placeholder="Phone Number"
+                            placeholder="Email"
                             type="text"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                         <input
                             placeholder="Password"
                             type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
-                        <button onClick>Sign In</button>
+                        <button onClick={getData}>Sign In</button>
                     </form>
                     <p>Forgot your password?</p>
                 </div>
