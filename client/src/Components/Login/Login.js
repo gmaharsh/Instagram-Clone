@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import './Login.css';
+import UserContext from '../../App';
 
 function Login() {
     const history = useHistory();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [state, dispatch] = useContext(UserContext)
 
     const getData = (e) => {
         e.preventDefault()
@@ -22,7 +24,8 @@ function Login() {
             .then(data => {
                 if (data) {
                     localStorage.setItem("jwt", data.token)
-                    localStorage.setItem("user",JSON.stringify(data.user))
+                    localStorage.setItem("user", JSON.stringify(data.user))
+                    dispatch({type:"USER", payload:data.user})
                     console.log(data)
                     history.push("/")
                 } else {
