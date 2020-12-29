@@ -3,6 +3,12 @@
     margin: 30px auto;
 }
 
+.home__post{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
 .home__displayInfo{
     display: flex;
     align-items: center;

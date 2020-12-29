@@ -5,6 +5,7 @@ import Header from './Components/Header/Header';
 import Home from './Components/Home/Home';
 import Signup from './Components/Signup/Signup';
 import Profile from './Components/Profile/Profile';
+import Post from './Components/Post/Post';
 
 function App() {
   return (
@@ -28,6 +29,10 @@ function App() {
           <Route path="/profile">
             <Header />
             <Profile />
+          </Route>
+          <Route path="/post">
+            <Header />
+            <Post />
           </Route>
         </Switch>
       </div>
