@@ -5,7 +5,7 @@ import './Signup.css';
 function Signup() {
     return (
         <div className="signup">
-            <div className="signup__form">
+            <div className="signUp__form">
                 <h1>Instagram</h1>
                 <h4>Sign up to see photos and videos from your friends.</h4>
                 <form>

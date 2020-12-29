@@ -1,0 +1,67 @@
+.profile{
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+.profile__display{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 30px 0px;
+}
+
+.profile__image > img{
+    width: 160px;
+    height: 160px;
+    border-radius: 80px;
+}
+
+.profile__general{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.profile__general > button {
+    width: 100px;
+    height: 30px;
+    margin: 0 20px;
+    border: 1px solid #dbdbdb;
+    background-color: transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.profile__info{
+    display: flex;
+    flex-direction: column;
+}
+
+.profile__follow{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.profile__follow > h4 >span{
+    font-weight: 400;
+    margin-left: 5px;
+}
+
+.profile__posts{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    border-top: 1px solid #dbdbdb;
+    padding-top: 10px;
+}
+
+.profile__posts > img{
+    width: 30%;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.profile__posts :hover{
+    transform: scale(1.05);
+}

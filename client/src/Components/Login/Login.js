@@ -25,11 +25,10 @@ function Login() {
                     <p>Forgot your password?</p>
                 </div>
                 <div className="signup__form">
-                    <p>Don't have account?
-                        <Link to="/signup">
-                            <span>Sign up</span>
-                        </Link>
-                    </p>
+                    <p>Don't have account?</p>
+                    <Link to="/signup">
+                        <p>Sign up</p>
+                    </Link>
                 </div>
             </div>
         </div>

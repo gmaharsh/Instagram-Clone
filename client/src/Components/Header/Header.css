@@ -1,10 +1,13 @@
 .header{
+    position: sticky;
+    top: 0;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     padding: 15px;
-    box-shadow: 3px 3px 3px 3px #eeeeee;
-    position: relative;
+    border-bottom: 0.1px solid lightgray;
+    z-index: 999;
+    background-color: white;
 }
 
 .header__items{
@@ -25,13 +28,14 @@
 }
 
 .header__search > input{
-    width: 200px;
+    width: 250px;
     height: 20px;
     text-align: center;
     border: 1px solid #bdbdbd;
     border-radius: 5px;
+    outline: none;
 }
 
 .header__item{
-    margin-left: 10px;
+    margin-left: 15px;
 }

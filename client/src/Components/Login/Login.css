@@ -68,15 +68,20 @@
 } */
 
 .signup__form{
+    display: flex;
+    margin-top: 30px;
     justify-content: center;
-    border: 1px solid black;
-    margin-top: 20px;
-    padding: 30px 120px;
+    align-items:  center;
+    padding: 20px 105px;
+}
+
+.signup__form > p{
+    align-items: ce;
 }
 
 span{
     /* padding-right: 20px; */
-    margin-left: 10px;
+    /* margin-left: 10px;
     color: #1589ff;
-    outline: none;
+    outline: none; */
 }
