@@ -13,6 +13,10 @@ export const reducer = (state, action) => {
                 ...state,
                 user:action.user
             }
+        case "REMOVE_USER":
+            return {
+                user:null
+            }
         default:
             return state
     }

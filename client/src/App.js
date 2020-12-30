@@ -29,12 +29,12 @@ function App() {
       <Router>
       <div className="app">
         {!user ? (
-          <Route path="/login">
                 <Login />
-            </Route>
         ) :( 
           <Switch>
-            
+            <Route path="/login">
+                <Login />
+            </Route>
             <Route path="/signup">
                 <Signup />
             </Route>

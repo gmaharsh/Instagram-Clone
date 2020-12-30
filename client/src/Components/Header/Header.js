@@ -6,13 +6,24 @@ import ExploreIcon from '@material-ui/icons/Explore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Avatar from "@material-ui/core/Avatar";
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { useStateValue } from '../../reducers/StateProvider';
+import { actionTypes } from '../../reducers/userReducer';
 // import { UserContext } from '../../App';
 
 
 function Header() {
+    
+    const [{} , dispatch] = useStateValue()
+    const history = useHistory();
 
     const signout = () => {
+        console.log("I am clicked")
+        localStorage.clear()
+        dispatch({
+            type: actionTypes.REMOVE_USER,
+        })
+        history.push("/login")
     }
 
     return (
