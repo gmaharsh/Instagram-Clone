@@ -9,7 +9,7 @@ function Login() {
     const history = useHistory();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [{ }, dispatch] = useStateValue();
+    const [{}, dispatch] = useStateValue();
 
     const getData = (e) => {
         e.preventDefault()
@@ -31,11 +31,9 @@ function Login() {
                         type: actionTypes.SET_USER,
                         user: data.user
                     })
-                    console.log(data)
+                    console.log("data after login:-",data)
                     history.push("/")
-                } else {
-                    history.push("/")
-                }
+                } 
         }).catch(error => console.log(error))
     }
 

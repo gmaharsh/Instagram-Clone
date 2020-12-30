@@ -6,8 +6,15 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import ChatRoundedIcon from '@material-ui/icons/ChatRounded';
 import SendIcon from '@material-ui/icons/Send';
 import BookmarkBorderRoundedIcon from '@material-ui/icons/BookmarkBorderRounded';
+import { useStateValue } from '../../reducers/StateProvider';
 
 function Home() {
+
+    const [state, dispatch] = useStateValue();
+
+    console.log("State From Home:-", state)
+        
+
     return (
         <div className="home">
             <div className="home__post">

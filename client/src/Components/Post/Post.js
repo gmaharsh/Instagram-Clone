@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useStateValue } from '../../reducers/StateProvider';
 import './Post.css';
 
 function Post() {
@@ -7,6 +8,9 @@ function Post() {
     const [caption, setCaption] = useState("");
     const [image, setImage] = useState("");
     const [url, setUrl] = useState("");
+
+    const [state, dispatch] = useStateValue();
+    console.log("State from post:-", state)
 
     useEffect(() => {
         console.log("url:-",url)

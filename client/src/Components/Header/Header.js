@@ -11,11 +11,17 @@ import { Link } from 'react-router-dom';
 
 
 function Header() {
+
+    const signout = () => {
+    }
+
     return (
         <div className="header">
-            <div className="header__logo">
-                <h3>Instagram</h3>
-            </div>
+            <Link to="/" style={{ color: "black",textDecoration:"none"}}>
+                <div className="header__logo">
+                    <h3>Instagram</h3>
+                </div>
+            </Link>
             <div className="header__search">
                 <input
                     type="text"
@@ -43,7 +49,7 @@ function Header() {
                 <div className="header__item">
                     <FavoriteIcon />
                 </div>
-                <div className="header__item">
+                <div className="header__item" onClick={signout}>
                     <Avatar />
                 </div>
             </div>
