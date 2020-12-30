@@ -6,21 +6,19 @@ import Home from './Components/Home/Home';
 import Signup from './Components/Signup/Signup';
 import Profile from './Components/Profile/Profile';
 import Post from './Components/Post/Post';
-import { createContext, useContext, useEffect, useReducer } from 'react';
-import { initialState, reducer } from './reducers/userReducer';
-
-export const UserContext = createContext();
+import { useStateValue } from './reducers/StateProvider';
+import { useContext, useEffect } from 'react';
 
 const Routing = () => {
   const history = useHistory();
-  const [state, dispatch] = useContext(UserContext);
+  const [{}, dispatch] = useStateValue();
   useEffect(() => { 
     const user = JSON.parse(localStorage.getItem("user"));
-    
+    console.log(user)
 
     if (user) {
       dispatch({type:"USER", payload:user})
-      history.push('/')
+      history.push("/")
     } else {
       history.push('/login')
     }
@@ -49,18 +47,15 @@ const Routing = () => {
   )
 }
 
+
 function App() {
-
-  const [state, dispatch] = useReducer(reducer, initialState)
-
+  
   return (
-    <UserContext.Provider value={{state, dispatch}}>
       <Router>
         <div className="app">
           <Routing />
         </div>
       </Router>
-    </UserContext.Provider>
   );
 }
 

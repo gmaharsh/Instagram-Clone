@@ -39,3 +39,7 @@
 .header__item{
     margin-left: 15px;
 }
+
+Link > .header__item { 
+    color: black;
+}

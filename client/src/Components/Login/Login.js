@@ -2,12 +2,14 @@ import React, { useContext, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import './Login.css';
 import UserContext from '../../App';
+import { useStateValue } from '../../reducers/StateProvider';
+import { actionTypes } from '../../reducers/userReducer';
 
 function Login() {
     const history = useHistory();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [state, dispatch] = useContext(UserContext)
+    const [{ }, dispatch] = useStateValue();
 
     const getData = (e) => {
         e.preventDefault()
@@ -25,7 +27,10 @@ function Login() {
                 if (data) {
                     localStorage.setItem("jwt", data.token)
                     localStorage.setItem("user", JSON.stringify(data.user))
-                    dispatch({type:"USER", payload:data.user})
+                    dispatch({
+                        type: actionTypes.SET_USER,
+                        user: data.user
+                    })
                     console.log(data)
                     history.push("/")
                 } else {

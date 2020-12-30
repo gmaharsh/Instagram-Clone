@@ -5,6 +5,10 @@ import MessageIcon from '@material-ui/icons/Message';
 import ExploreIcon from '@material-ui/icons/Explore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Avatar from "@material-ui/core/Avatar";
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import { Link } from 'react-router-dom';
+// import { UserContext } from '../../App';
+
 
 function Header() {
     return (
@@ -19,9 +23,17 @@ function Header() {
                 />
             </div>
             <div className="header__items">
-                <div className="header__item">
-                    <HomeIcon />
-                </div>
+                {/* {renderList() */}
+                <Link to="/post" style={{color:"black"}}>
+                    <div className="header__item">
+                        <AddCircleIcon />
+                    </div>
+                </Link>
+                <Link to="/" style={{color:"black"}}>
+                    <div className="header__item">
+                        <HomeIcon />
+                    </div>
+                </Link>
                 <div className="header__item">
                     <MessageIcon />
                 </div>

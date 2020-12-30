@@ -85,6 +85,9 @@ function Home() {
                                 <FavoriteBorderIcon fontSize="medium" />
                             </div>
                             <div className="post__AnalyticsLeftItem">
+                                <FavoriteBorderIcon fontSize="medium" />
+                            </div>
+                            <div className="post__AnalyticsLeftItem">
                                 <ChatRoundedIcon fontSize="medium" />
                             </div>
                             <div className="post__AnalyticsLeftItem">
