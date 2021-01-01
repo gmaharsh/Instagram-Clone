@@ -79,6 +79,28 @@ router.put('/like', requireLogin, (req, res) => {
     })
 })
 
+router.put('/comment', requireLogin, (req, res) => {
+    const comment = {
+        text: req.body.comment,
+        postedBy: req.user._id
+    }
+    Post.findByIdAndUpdate(req.body.postId, {
+        $pull : {comments: comment}
+    }, {
+        new : true
+    }).populate("comments.postedBy", "_id name")
+    .exec((err, result) => {
+        if (err) {
+            return res.status(422).json({
+                error: err
+            })
+        } else {
+            res.json(result)
+        }
+    })
+
+})
+
 router.put('/dislike', requireLogin, (req, res) => {
     // console.log("I am clicked")
     Post.findByIdAndUpdate(req.body.postId, {
