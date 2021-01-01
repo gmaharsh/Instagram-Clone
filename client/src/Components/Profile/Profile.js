@@ -37,8 +37,8 @@ function Profile() {
                     </div>
                     <div className="profile__follow">
                         <h4>{myPics.length}<span>posts</span></h4>
-                        <h4>{state ? state.user.followers.length :  " "}<span>followers</span></h4>
-                        <h4>{state ? state.user.following.length : " "}<span>following</span></h4>
+                        <h4>{state ? state.user.followers.length :  "0"}<span>followers</span></h4>
+                        <h4>{state ? state.user.following.length : "0"}<span>following</span></h4>
                     </div>
                 </div>
             </div>
