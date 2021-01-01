@@ -7,13 +7,14 @@ import ChatRoundedIcon from '@material-ui/icons/ChatRounded';
 import SendIcon from '@material-ui/icons/Send';
 import BookmarkBorderRoundedIcon from '@material-ui/icons/BookmarkBorderRounded';
 import { useStateValue } from '../../reducers/StateProvider';
+import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 
 function Home() {
 
     const [state, dispatch] = useStateValue();
     const [data, setData] = useState([]);
 
-    console.log("State From Home:-", state)
+    // console.log("State From Home:-", state)
 
     useEffect(() => {
         fetch('/allpost', {
@@ -26,8 +27,63 @@ function Home() {
         })
     }, [])
     
-    console.log(data)
+    // console.log(data)
 
+    const likePost = (id) => {
+        // console.log("id:-", id)
+        fetch('/like', {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("jwt")
+            },
+            body: JSON.stringify({
+                postId: id
+            })
+        }).then(res => res.json())
+            .then(result => {
+                const newData = data.map(item => {
+                    if (item._id == id) {
+                        return result
+                    } else {
+                        return item
+                    }
+                })
+                setData(newData)
+            }).catch(err => {
+                console.log("Error:-", err)
+        })
+    }
+    // console.log(data)
+
+    const dislikePost = (id) => {
+        // console.log("I am clicked by:-", id)
+        fetch('/dislike', {
+            method: "put",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("jwt")
+            },
+            body: JSON.stringify({
+                postId: id
+            })
+        }).then(res => res.json())
+            .then(result => {
+                const newData = data.map(item => {
+                    if (item._id == id) {
+                        return result
+                    } else {
+                        return item
+                    }
+                })
+                setData(newData)
+            }).catch(err => {
+                console.log("Error:-", err)
+        })
+    }
+    // console.log("State:-", state.user._id)
+
+    // console.log("Data:-", data)
     return (
         <div className="home">
             {data.map(item => {
@@ -50,17 +106,17 @@ function Home() {
                             <div className="home__postInfo">
                                 <div className="post__Analytics">
                                     <div className="post__AnalyticsLeft">
+                                        {item.likes.includes(state.user._id) ? <div className="post__AnalyticsLeftItem" onClick={() => dislikePost(item._id)}>
+                                            <ThumbDownIcon  />
+                                        </div> :
+                                        <div className="post__AnalyticsLeftItem" onClick={() => likePost(item._id)}>
+                                            <FavoriteBorderIcon  />
+                                        </div>}
                                         <div className="post__AnalyticsLeftItem">
-                                            <FavoriteBorderIcon fontSize="medium" />
+                                            <ChatRoundedIcon  />
                                         </div>
                                         <div className="post__AnalyticsLeftItem">
-                                            <FavoriteBorderIcon fontSize="medium" />
-                                        </div>
-                                        <div className="post__AnalyticsLeftItem">
-                                            <ChatRoundedIcon fontSize="medium" />
-                                        </div>
-                                        <div className="post__AnalyticsLeftItem">
-                                            <SendIcon fontSize="medium" />
+                                            <SendIcon  />
                                         </div>
                                     </div>
                                     <div className="post__AnalyticsRight">
@@ -68,7 +124,7 @@ function Home() {
                                     </div>  
                                 </div>
                                 <div className="post__LikesComment">
-                                    <h4>3,000 likes</h4>
+                                    <h4>{item.likes.length} likes</h4>
                                     <div className="post__Comment">
                                         <h4>{item.postedBy.name}</h4>
                                         <p>{item.caption}</p>

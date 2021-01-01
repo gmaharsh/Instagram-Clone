@@ -15,7 +15,8 @@ app.use(express.json())
 const connection_url = `mongodb+srv://gmaharsh:Maharsh@1997@cluster0.9gzq7.mongodb.net/<dbname>?retryWrites=true&w=majority`;
 mongoose.connect(connection_url, {
     useUnifiedTopology: true,
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useFindAndModify: false
 }).then(() => {
         console.log("Connected to Database")
     })

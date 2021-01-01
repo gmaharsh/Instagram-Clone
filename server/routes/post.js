@@ -79,7 +79,8 @@ router.put('/like', requireLogin, (req, res) => {
     })
 })
 
-router.put('/unlike', requireLogin, (req, res) => {
+router.put('/dislike', requireLogin, (req, res) => {
+    // console.log("I am clicked")
     Post.findByIdAndUpdate(req.body.postId, {
         $pull : {likes:req.user._id}
     }, {
