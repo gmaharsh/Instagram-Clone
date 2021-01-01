@@ -68,7 +68,27 @@ router.put('/like', requireLogin, (req, res) => {
         $push : {likes:req.user._id}
     }, {
         new : true
-    }).exec((err, result) => {
+    }).populate("postedBy", "_id name")
+    .exec((err, result) => {
+        if (err) {
+            return res.status(422).json({
+                error: err
+            })
+        } else {
+            res.json(result)
+        }
+    })
+})
+
+
+router.put('/dislike', requireLogin, (req, res) => {
+    // console.log("I am clicked")
+    Post.findByIdAndUpdate(req.body.postId, {
+        $pull : {likes:req.user._id}
+    }, {
+        new : true
+    }).populate("postedBy", "_id name")
+    .exec((err, result) => {
         if (err) {
             return res.status(422).json({
                 error: err
@@ -80,12 +100,14 @@ router.put('/like', requireLogin, (req, res) => {
 })
 
 router.put('/comment', requireLogin, (req, res) => {
+    // console.log("Comment:-",req.body.comment)
     const comment = {
         text: req.body.comment,
         postedBy: req.user._id
     }
+    console.log(comment)
     Post.findByIdAndUpdate(req.body.postId, {
-        $pull : {comments: comment}
+        $push : {comments: comment}
     }, {
         new : true
     }).populate("comments.postedBy", "_id name")
@@ -98,23 +120,6 @@ router.put('/comment', requireLogin, (req, res) => {
             res.json(result)
         }
     })
-
 })
 
-router.put('/dislike', requireLogin, (req, res) => {
-    // console.log("I am clicked")
-    Post.findByIdAndUpdate(req.body.postId, {
-        $pull : {likes:req.user._id}
-    }, {
-        new : true
-    }).exec((err, result) => {
-        if (err) {
-            return res.status(422).json({
-                error: err
-            })
-        } else {
-            res.json(result)
-        }
-    })
-})
 module.exports = router;

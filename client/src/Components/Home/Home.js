@@ -13,6 +13,7 @@ function Home() {
 
     const [state, dispatch] = useStateValue();
     const [data, setData] = useState([]);
+    const [comment, setComment] = useState("");
 
     // console.log("State From Home:-", state)
 
@@ -81,9 +82,38 @@ function Home() {
                 console.log("Error:-", err)
         })
     }
+
+    const makeComment = (text, id) => {
+        // e.preventDefault()
+        console.log("comment from state:-", text)
+        fetch('/comment', {
+            method: "put",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("jwt")
+            },
+            body: JSON.stringify({
+                comment: text,
+                postId: id
+            })
+        }).then(res => res.json())
+            .then(result => {
+                // const newData = data.map(item => {
+                //     if (item._id == id) {
+                //         return result
+                //     } else {
+                //         return item
+                //     }
+                // })
+                // setData(newData)
+                console.log(result)
+            }).catch(err => {
+                console.log("Error from front-end:-", err)
+        })
+    }
     // console.log("State:-", state.user._id)
 
-    // console.log("Data:-", data)
+    console.log("Data:-", data)
     return (
         <div className="home">
             {data.map(item => {
@@ -133,15 +163,18 @@ function Home() {
                                 </div>
                             </div>
                             <div className="home__addComment">
-                                <div className="newComment">
+                                <form onSubmit={(e) => {
+                                    e.preventDefault()
+                                    makeComment(e.target[0].value, item._id)
+                                }}>
                                     <input
                                         type="text"
+                                        // value={comment}
                                         placeholder="Add a comment"
+                                        // onChange={(e) => setComment(e.target.value)}
                                     />
-                                </div>
-                                <div className="postButton">
-                                    <h4>Post</h4>
-                                </div>
+                                    <button>Post</button>
+                                </form>
                             </div>
                         </div>
                     )
