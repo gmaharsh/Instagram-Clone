@@ -139,7 +139,7 @@ function Home() {
                                 <div className="display__info">
                                     <Avatar /> 
                                     {/* <Link to= {`/profile/${item.postedBy._id}`}> */}
-                                    <Link to={item.postedBy._id !== state.user.id ? "/profile/" + item.postedBy._id : "/profile"} >
+                                    <Link to={item.postedBy._id !== state.user.id ? "/profile/" + item.postedBy._id : "/profile"} style={{ marginLeft: "20px", textDecoration: "none", color:"black"}} >
                                         <h4>{item.postedBy.name}</h4>
                                     </Link>
                                 </div>

@@ -21,7 +21,7 @@
     display: flex;
     align-items: center;
 }
-.display__info > h4{
+.display__info > Link > h4{
     margin-left: 20px;
 }
 

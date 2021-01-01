@@ -36,7 +36,7 @@ function Profile() {
                         <SettingsIcon />
                     </div>
                     <div className="profile__follow">
-                        <h4>192<span>posts</span></h4>
+                        <h4>{myPics.length}<span>posts</span></h4>
                         <h4>1000 <span>followers</span></h4>
                         <h4>1000 <span>following</span></h4>
                     </div>
