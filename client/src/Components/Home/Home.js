@@ -93,25 +93,40 @@ function Home() {
                 "Authorization": "Bearer " + localStorage.getItem("jwt")
             },
             body: JSON.stringify({
-                comment: text,
-                postId: id
+                text,
+                postId : id,
             })
         }).then(res => res.json())
             .then(result => {
-                // const newData = data.map(item => {
-                //     if (item._id == id) {
-                //         return result
-                //     } else {
-                //         return item
-                //     }
-                // })
-                // setData(newData)
-                console.log(result)
+                // setData(result)
+                
             }).catch(err => {
                 console.log("Error from front-end:-", err)
         })
     }
-    // console.log("State:-", state.user._id)
+
+    const deletePost = (postId) => {
+        console.log("I am clicked by:-", postId)
+        fetch(`/delete/${postId}`, {
+            method: "delete",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("jwt")
+            },
+        }).then(res => res.json())
+            .then(result => {
+                // setData(result)
+                console.log("result", result.result._id)
+                const newData = data.filter(item => {
+                    return item._id !== result.result._id
+                })
+                // console.log(newData)
+                setData(newData)
+            }).catch(err => {
+                console.log("Error from front-end:-", err)
+        })
+    }
+    console.log("State:-", state.user._id)
 
     console.log("Data:-", data)
     return (
@@ -124,9 +139,10 @@ function Home() {
                                     <Avatar /> 
                                     <h4>{item.postedBy.name}</h4>
                                 </div>
-                                <div className="displayInfo__more">
-                                    <MoreHorizIcon />
+                                <div className="displayInfo__more" >
+                                    {item.postedBy._id == state.user._id && <MoreHorizIcon onClick={() => deletePost(item._id)}/>}
                                 </div>
+                                
                             </div>
                             <div className="home__postImage">
                                 <img

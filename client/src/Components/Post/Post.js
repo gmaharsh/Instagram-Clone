@@ -10,7 +10,7 @@ function Post() {
     const [url, setUrl] = useState("");
 
     const [state, dispatch] = useStateValue();
-    console.log("State from post:-", state)
+    console.log("State from post:-", state.user._id)
 
     useEffect(() => {
         console.log("url:-",url)

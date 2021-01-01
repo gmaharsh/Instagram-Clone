@@ -21,6 +21,8 @@ router.post("/createPost", requireLogin,  (req, res) => {
         postedBy:req.user
     })
 
+    console.log(post)
+
     post.save()
         .then((result) => {
             res.json({
@@ -102,24 +104,49 @@ router.put('/dislike', requireLogin, (req, res) => {
 router.put('/comment', requireLogin, (req, res) => {
     // console.log("Comment:-",req.body.comment)
     const comment = {
-        text: req.body.comment,
+        text: req.body.text,
         postedBy: req.user._id
     }
-    console.log(comment)
+    // console.log(req.body.text)
+    console.log("Text:-",comment)
     Post.findByIdAndUpdate(req.body.postId, {
-        $push : {comments: comment}
+        $push: { comments: comment }
     }, {
         new : true
     }).populate("comments.postedBy", "_id name")
+    .populate("postedBy", "_id name" )
     .exec((err, result) => {
         if (err) {
             return res.status(422).json({
-                error: err
+                error_from_server: err
             })
         } else {
             res.json(result)
         }
     })
+})
+
+router.delete('/delete/:postId', requireLogin, (req, res) => {
+    Post.findOne({ _id: req.params.postId })
+        .populate("postedBy", "_id")
+        .exec((err, post) => {
+            if (err || !post) {
+                return res.status(422).json({
+                    error: err
+                })
+            }
+            if (post.postedBy._id.toString() === req.user._id.toString()){
+                post.remove()
+                    .then(result => {
+                        res.json({
+                            message: "Successfully deleted",
+                            result
+                        })
+                        // console.log("Deletion result:-", result)
+
+                })
+            }
+        })
 })
 
 module.exports = router;
