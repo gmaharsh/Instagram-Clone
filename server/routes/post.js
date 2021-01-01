@@ -3,6 +3,8 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const requireLogin = require('../middleware/requireLogin');
 const Post = mongoose.model("post")
+const User = mongoose.model("user")
+
 
 router.post("/createPost", requireLogin,  (req, res) => {
     const { caption, image } = req.body;
@@ -147,6 +149,57 @@ router.delete('/delete/:postId', requireLogin, (req, res) => {
                 })
             }
         })
+})
+
+router.put('/follow', requireLogin, (req, res) => {
+    User.findByIdAndUpdate(req.body.followId, {
+        $push:{followers: req.user._id}
+    }, {
+        new: true
+    }, (err, result) => {
+            if (err) {
+                res.status(422).json({
+                    error: err
+                })
+            }
+            User.findByIdAndUpdate(req.body.user._id, {
+                $push:{following:req.body.followId}
+            }, {
+                new:true
+            }).then(result => {
+                res.json(result)
+            }).catch(err => {
+                return res.status(422).json({
+                    error: err
+                })
+        })
+    })
+})
+
+
+router.put('/unfollow', requireLogin, (req, res) => {
+    User.findByIdAndUpdate(req.body.followId, {
+        $pull:{followers: req.user._id}
+    }, {
+        new: true
+    }, (err, result) => {
+            if (err) {
+                res.status(422).json({
+                    error: err
+                })
+            }
+            User.findByIdAndUpdate(req.body.user._id, {
+                $pull:{following:req.body.followId}
+            }, {
+                new:true
+            }).then(result => {
+                res.json(result)
+            }).catch(err => {
+                return res.status(422).json({
+                    error: err
+                })
+        })
+    })
 })
 
 module.exports = router;

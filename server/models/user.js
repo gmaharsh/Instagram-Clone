@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const { ObjectId } = mongoose.Schema.Types
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -16,7 +16,15 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required:true
-    }
+    },
+    followers: [{
+        type: ObjectId,
+        ref:"user"
+    }],
+    following: [{
+        type: ObjectId,
+        ref:"user"
+    }]
 })
 
 mongoose.model("user", userSchema);
