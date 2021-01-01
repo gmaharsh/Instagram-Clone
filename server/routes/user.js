@@ -27,6 +27,8 @@ router.get('/user/:id', requireLogin, (req, res) => {
 })
 
 router.put('/follow', requireLogin, (req, res) => {
+    console.log(req.body.followId)
+    console.log(req.user._id)
     User.findByIdAndUpdate(req.body.followId, {
         $push:{followers: req.user._id}
     }, {
@@ -37,7 +39,7 @@ router.put('/follow', requireLogin, (req, res) => {
                     error: err
                 })
             }
-            User.findByIdAndUpdate(req.body.user._id, {
+            User.findByIdAndUpdate(req.user._id, {
                 $push:{following:req.body.followId}
             }, {
                 new:true
@@ -53,6 +55,7 @@ router.put('/follow', requireLogin, (req, res) => {
 
 
 router.put('/unfollow', requireLogin, (req, res) => {
+    console.log(req.body.followId)
     User.findByIdAndUpdate(req.body.followId, {
         $pull:{followers: req.user._id}
     }, {
@@ -63,7 +66,7 @@ router.put('/unfollow', requireLogin, (req, res) => {
                     error: err
                 })
             }
-            User.findByIdAndUpdate(req.body.user._id, {
+            User.findByIdAndUpdate(req.user._id, {
                 $pull:{following:req.body.followId}
             }, {
                 new:true

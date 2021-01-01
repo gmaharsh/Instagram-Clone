@@ -1,5 +1,7 @@
 export const initialState = {
-    user: null
+    user: null,
+    following: [],
+    followers: []
 }
 
 export const actionTypes = {
@@ -17,6 +19,13 @@ export const reducer = (state, action) => {
             return {
                 user:null
             }
+        case "UPDATE":
+            return {
+                ...state,
+                following: action.payload.following,
+                followers: action.payload.followers
+            }
+        
         default:
             return state
     }

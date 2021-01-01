@@ -1,0 +1,28 @@
+.profile__stats{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 20px 0;
+    align-items: center;
+}
+
+.profile__stats  >h4{
+    margin-right: 20px;
+}
+
+.profile__follow-following{
+    display: flex;
+}
+
+.profile__follow-following > button{
+    border: 1px solid gray;
+    width: 20vh;
+    height: 3vh;
+    cursor: pointer;
+    align-items: center;
+}
+
+
+.profile__follow-following :hover{
+    background-color: lightblue;
+    color: black;
+}

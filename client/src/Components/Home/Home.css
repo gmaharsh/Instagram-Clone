@@ -17,6 +17,11 @@
     padding: 10px;
 }
 
+.profile__stats{
+    display: flex;
+    justify-content: space-evenly;
+}
+
 .display__info{
     display: flex;
     align-items: center;

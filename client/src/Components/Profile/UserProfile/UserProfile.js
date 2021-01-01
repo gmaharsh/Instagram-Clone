@@ -5,12 +5,12 @@ import { useParams } from 'react-router-dom';
 import { useStateValue } from '../../../reducers/StateProvider';
 
 const UserProfile = ()  => {
-
+    const [state, dispatch] = useStateValue();
     const [userProfile, setuserProfile] = useState([]);
     const { userId } = useParams()
-    const [state, dispatch] = useStateValue();
-
-    console.log("userid:-", userId)
+    const [showFollowButton, setShowFollowButton] = useState(true);
+    
+    // console.log("userid:-", userId)
 
     useEffect(() => {
         fetch(`/user/${userId}`, {
@@ -19,13 +19,82 @@ const UserProfile = ()  => {
             }
         }).then(res => res.json())
             .then(result => {
-                console.log("result:-", result)
+                // console.log("result:-", result)
                 setuserProfile(result)
             })
     }, [])
 
-    console.log("userProfile",userProfile)
-    console.log("State:-",state.user)
+    const followUser = () => {
+        fetch('/follow', {
+            method: "put",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("jwt")
+            }, body: JSON.stringify({
+                followId: userId
+            })
+        }).then(res => res.json())
+            .then(result => {
+                dispatch({
+                    type: "UPDATE",
+                    payload: {
+                        following: result.following,
+                        followers : result.followers
+                    }
+                })
+                
+                setuserProfile((prevstate) => {
+                    return {
+                        ...prevstate,
+                        user: {
+                            ...prevstate.user,
+                            followers:[...prevstate.user.followers, result._id]
+                        }
+                    }
+                })
+           
+            })  
+        setShowFollowButton(false)
+    }
+
+    console.log("showFollow:-", showFollowButton)
+
+    const UnfollowUser = () => {
+        fetch('/unfollow', {
+            method: "put",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("jwt")
+            }, body: JSON.stringify({
+                followId: userId
+            })
+        }).then(res => res.json())
+            .then(result => {
+                console.log("result of following", result)
+                dispatch({
+                    type: "UPDATE",
+                    payload: {
+                        following: result.following,
+                        followers : result.followers
+                    }
+                })
+                setuserProfile((prevstate) => {
+                    // console.log("Previous State:-", prevstate)
+                    const newFollower = prevstate.user.followers.filter(item => item !== result._id);
+                    return {
+                        ...prevstate,
+                        user: {
+                            ...prevstate.user,
+                            followers:newFollower
+                        }
+                    }
+                })
+            })
+        setShowFollowButton(true)
+    }
+
+    // console.log("userProfile",userProfile)
+    console.log("State:-",state)
     return (
         <>
             {userProfile.user ?
@@ -40,10 +109,15 @@ const UserProfile = ()  => {
                                 <button>Message</button>
                                 <SettingsIcon />
                             </div>
-                            <div className="profile__follow">
+                            <div className="profile__stats">
                                 <h4>{userProfile.posts.length}<span>posts</span></h4>
-                                <h4>1000 <span>followers</span></h4>
-                                <h4>1000 <span>following</span></h4>
+                                <h4>{userProfile.user.followers.length} <span>followers</span></h4>
+                                <h4>{userProfile.user.following.length} <span>following</span></h4>
+                            </div>
+                            <div className="profile__follow-following">
+                                {showFollowButton ? 
+                                <button onClick={() => followUser()}>Follow</button>: 
+                                <button onClick={() => UnfollowUser()}>UnFollow</button>}
                             </div>
                         </div>
                     </div>
