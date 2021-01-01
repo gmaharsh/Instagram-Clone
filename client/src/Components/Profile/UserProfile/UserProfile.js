@@ -3,6 +3,7 @@ import './UserProfile.css';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { useParams } from 'react-router-dom';
 import { useStateValue } from '../../../reducers/StateProvider';
+import { actionTypes } from '../../../reducers/userReducer';
 
 const UserProfile = ()  => {
     const [state, dispatch] = useStateValue();
@@ -35,13 +36,12 @@ const UserProfile = ()  => {
             })
         }).then(res => res.json())
             .then(result => {
+                console.log("result of follow:-", result)
                 dispatch({
-                    type: "UPDATE",
-                    payload: {
-                        following: result.following,
-                        followers : result.followers
-                    }
+                    type: actionTypes.UPDATE,
+                    following: result.following
                 })
+                localStorage.setItem("user", JSON.stringify(result))
                 
                 setuserProfile((prevstate) => {
                     return {
@@ -57,7 +57,7 @@ const UserProfile = ()  => {
         setShowFollowButton(false)
     }
 
-    console.log("showFollow:-", showFollowButton)
+    console.log("State:-", state)
 
     const UnfollowUser = () => {
         fetch('/unfollow', {
@@ -70,7 +70,7 @@ const UserProfile = ()  => {
             })
         }).then(res => res.json())
             .then(result => {
-                console.log("result of following", result)
+                console.log("result of unfollow", result)
                 dispatch({
                     type: "UPDATE",
                     payload: {
@@ -78,14 +78,16 @@ const UserProfile = ()  => {
                         followers : result.followers
                     }
                 })
+                localStorage.setItem("user", JSON.stringify(result))
                 setuserProfile((prevstate) => {
                     // console.log("Previous State:-", prevstate)
                     const newFollower = prevstate.user.followers.filter(item => item !== result._id);
+                    console.log("newFollower:-", newFollower)
                     return {
                         ...prevstate,
                         user: {
                             ...prevstate.user,
-                            followers:newFollower
+                            following:newFollower
                         }
                     }
                 })
