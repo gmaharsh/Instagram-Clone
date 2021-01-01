@@ -9,6 +9,7 @@ import Post from './Components/Post/Post';
 import { useStateValue } from './reducers/StateProvider';
 import { useEffect } from 'react';
 import { actionTypes } from './reducers/userReducer';
+import UserProfile from './Components/Profile/UserProfile/UserProfile';
 
 
 
@@ -42,9 +43,13 @@ function App() {
               <Header />
               <Post />
             </Route>
-            <Route path="/profile">
+            <Route exact path="/profile">
                 <Header />
                 <Profile />
+              </Route>
+            <Route path="/profile/:userId">
+                <Header />
+                <UserProfile />
             </Route>
             <Route exact path="/">
               <Header />

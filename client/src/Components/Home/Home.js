@@ -8,6 +8,7 @@ import SendIcon from '@material-ui/icons/Send';
 import BookmarkBorderRoundedIcon from '@material-ui/icons/BookmarkBorderRounded';
 import { useStateValue } from '../../reducers/StateProvider';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
+import { Link } from 'react-router-dom';
 
 function Home() {
 
@@ -137,7 +138,10 @@ function Home() {
                             <div className="home__displayInfo">
                                 <div className="display__info">
                                     <Avatar /> 
-                                    <h4>{item.postedBy.name}</h4>
+                                    {/* <Link to= {`/profile/${item.postedBy._id}`}> */}
+                                    <Link to={item.postedBy._id !== state.user.id ? "/profile/" + item.postedBy._id : "/profile"} >
+                                        <h4>{item.postedBy.name}</h4>
+                                    </Link>
                                 </div>
                                 <div className="displayInfo__more" >
                                     {item.postedBy._id == state.user._id && <MoreHorizIcon onClick={() => deletePost(item._id)}/>}

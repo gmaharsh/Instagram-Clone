@@ -9,6 +9,7 @@ const { MONGO_URI } = require('./keys')
 //Middlwares
 require('./models/user');
 require('./models/post');
+require('./models/user');
 app.use(express.json())
 
 //Database Connection
@@ -27,12 +28,14 @@ mongoose.connect(connection_url, {
 //Routes Imports
 const auth = require('./routes/auth')
 const post = require('./routes/post')
+const user = require('./routes/user')
 
 
 
 //Routes
 app.use("/", auth)
 app.use("/", post)
+app.use("/", user)
 
 
 //Listener
