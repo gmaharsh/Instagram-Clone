@@ -39,7 +39,8 @@ router.post("/createPost", requireLogin,  (req, res) => {
 })
 
 
-router.post('/subpost', requireLogin, (req, res) => {
+router.get('/followpost', requireLogin, (req, res) => {
+    console.log(req.user)
     Post.find({ postedBy: { $in: req.user.following } })
         .populate("postedBy", "_id name")
         .populate("comments.postedBy", "_id name")

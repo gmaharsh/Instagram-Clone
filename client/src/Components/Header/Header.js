@@ -7,9 +7,11 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import Avatar from "@material-ui/core/Avatar";
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { Link, useHistory } from 'react-router-dom';
-import { useStateValue } from '../../reducers/StateProvider';
 import { actionTypes } from '../../reducers/userReducer';
+import { useStateValue } from '../../reducers/StateProvider';
 // import { UserContext } from '../../App';
+import PeopleIcon from '@material-ui/icons/People';
+
 
 
 function Header() {
@@ -41,6 +43,11 @@ function Header() {
             </div>
             <div className="header__items">
                 {/* {renderList() */}
+                <Link to="/myfollowersPost" style={{color:"black"}}>
+                    <div className="header__item">
+                        <PeopleIcon />
+                    </div>
+                </Link>
                 <Link to="/post" style={{color:"black"}}>
                     <div className="header__item">
                         <AddCircleIcon />

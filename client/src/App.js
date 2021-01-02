@@ -10,6 +10,7 @@ import { useStateValue } from './reducers/StateProvider';
 import { useEffect } from 'react';
 import { actionTypes } from './reducers/userReducer';
 import UserProfile from './Components/Profile/UserProfile/UserProfile';
+import SubscribedPost from './Components/Home/SubscribedPost/SubscribedPost';
 
 
 
@@ -54,6 +55,10 @@ function App() {
             <Route exact path="/">
               <Header />
               <Home />
+              </Route>
+              <Route exact path="/myfollowersPost">
+              <Header />
+              <SubscribedPost />
             </Route>
             </Switch>
           )}
