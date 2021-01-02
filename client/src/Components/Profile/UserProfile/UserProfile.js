@@ -9,9 +9,10 @@ const UserProfile = ()  => {
     const [state, dispatch] = useStateValue();
     const [userProfile, setuserProfile] = useState([]);
     const { userId } = useParams()
-    const [showFollowButton, setShowFollowButton] = useState(true);
+    const [showFollowButton, setShowFollowButton] = useState(state ? !state.user.following.includes(userId):true);
     
-    // console.log("userid:-", userId)
+    console.log(!state.user.following.includes(userId))
+    console.log("showFollowButton:-", showFollowButton)
 
     useEffect(() => {
         fetch(`/user/${userId}`, {
@@ -82,7 +83,7 @@ const UserProfile = ()  => {
                 setuserProfile((prevstate) => {
                     // console.log("Previous State:-", prevstate)
                     const newFollower = prevstate.user.followers.filter(item => item !== result._id);
-                    console.log("newFollower:-", newFollower)
+                    // console.log("newFollower:-", newFollower)
                     return {
                         ...prevstate,
                         user: {

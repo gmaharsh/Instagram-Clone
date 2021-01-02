@@ -26,7 +26,7 @@ function Profile() {
         <div className="profile">
             <div className="profile__display">
                 <div className="profile__image">
-                    <img src="https://instagram.ford4-1.fna.fbcdn.net/v/t51.2885-19/s150x150/123120705_989638364859600_8753336163012595414_n.jpg?_nc_ht=instagram.ford4-1.fna.fbcdn.net&_nc_ohc=HeQBC5kgX4QAX83-VJY&tp=1&oh=516dd7cfbb98d0354cbd98bbfe28bed6&oe=60156678" alt=""/>
+                    {state.user.profileImage ? <img src={state.user.profileImage} alt="" /> : <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png" alt=" " />}
                 </div>
                 <div className="profile__info">
                     <div className="profile__general">

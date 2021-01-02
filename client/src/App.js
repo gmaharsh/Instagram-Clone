@@ -56,7 +56,7 @@ function App() {
               <Header />
               <Home />
               </Route>
-              <Route exact path="/myfollowersPost">
+              <Route path="/myfollowersPost">
               <Header />
               <SubscribedPost />
             </Route>
