@@ -26,6 +26,7 @@ function Home() {
         }).then(res => res.json())
             .then(result => {
                 setData(result.post)
+                // console.log("All Post:-", result.post)
         })
     }, [])
     
@@ -84,26 +85,31 @@ function Home() {
         })
     }
 
-    const makeComment = (text, id) => {
-        // e.preventDefault()
-        console.log("comment from state:-", text)
-        fetch('/comment', {
-            method: "put",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + localStorage.getItem("jwt")
-            },
-            body: JSON.stringify({
-                text,
-                postId : id,
-            })
-        }).then(res => res.json())
-            .then(result => {
-                // setData(result)
-                
-            }).catch(err => {
-                console.log("Error from front-end:-", err)
-        })
+    const makeComment = (text,postId)=>{
+          fetch('/comment',{
+              method:"put",
+              headers:{
+                  "Content-Type":"application/json",
+                  "Authorization":"Bearer "+localStorage.getItem("jwt")
+              },
+              body:JSON.stringify({
+                  postId,
+                  text
+              })
+          }).then(res=>res.json())
+          .then(result=>{
+              console.log(result)
+              const newData = data.map(item=>{
+                if(item._id==result._id){
+                    return result
+                }else{
+                    return item
+                }
+             })
+            setData(newData)
+          }).catch(err=>{
+              console.log("Error from front-end:-", err)
+          })
     }
 
     const deletePost = (postId) => {
@@ -176,8 +182,16 @@ function Home() {
                                 <div className="post__LikesComment">
                                     <h4>{item.likes.length} likes</h4>
                                     <div className="post__Comment">
-                                        <h4>{item.postedBy.name}</h4>
-                                        <p>{item.caption}</p>
+                                        {
+                                            item.comments.map(record=>{
+                                                return (   
+                                                    <div className="comment">
+                                                        <h4 key={record._id}>{record.postedBy.name}</h4>
+                                                        <p>{record.text}</p>
+                                                    </div>
+                                                )
+                                            })
+                                        }
                                     </div>
                                     <p>1 day ago</p>
                                 </div>
@@ -188,12 +202,10 @@ function Home() {
                                     makeComment(e.target[0].value, item._id)
                                 }}>
                                     <input
-                                        type="text"
-                                        // value={comment}
                                         placeholder="Add a comment"
-                                        // onChange={(e) => setComment(e.target.value)}
+                                        type="text"
                                     />
-                                    <button>Post</button>
+                                    {/* <button>Post</button> */}
                                 </form>
                             </div>
                         </div>

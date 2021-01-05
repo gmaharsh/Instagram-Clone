@@ -9,6 +9,7 @@ const { JWT_SECRET } = require('./../config/keys');
 const requireLogin = require('../middleware/requireLogin')
 const nodemailer = require('nodemailer');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
+const { type } = require('os');
 // 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
 
 const transporter = nodemailer.createTransport(sendgridTransport({
@@ -31,7 +32,6 @@ router.get('/protected',requireLogin, (req, res) => {
 
 router.post('/signup', (req, res) => {
     const { name, email, password, username, image } = req.body;
-    console.log(image)
     if (!email || !password || !name || !username) {
         return res.status(422).json({
             error : " Please add all the fields"
@@ -53,7 +53,7 @@ router.post('/signup', (req, res) => {
                         password: hashedPassword,
                         profileImage: image
                     })
-                
+                    console.log("Type of User:-", typeof(user))
                 user.save()
                     .then((user) => {
                         transporter.sendMail({
@@ -136,7 +136,6 @@ router.post('/newpassword', (req, res) => {
 })
 
 router.post('/signin', (req, res) => {
-    console.log("i am called")
     const { email, password } = req.body;
     if (!email || !password) {
         res.status(422).json({

@@ -36,3 +36,8 @@
     outline: none;
     color: whitesmoke;
 }
+
+.post__Comment > .comment{
+    display: flex;
+    flex-direction: column;
+}

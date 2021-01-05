@@ -22,9 +22,6 @@ router.post("/createPost", requireLogin,  (req, res) => {
         image: image,   
         postedBy:req.user
     })
-
-    console.log(post)
-
     post.save()
         .then((result) => {
             res.json({
@@ -54,7 +51,8 @@ router.get('/followpost', requireLogin, (req, res) => {
 
 router.get("/allPost", (req, res) => {
     Post.find()
-        .populate("postedBy", "_id name")
+        .populate("postedBy","_id name")
+        .populate("comments.postedBy","_id name")
         .sort('-createdAt')
         .then((posts) => {
             res.json({
@@ -119,19 +117,17 @@ router.put('/dislike', requireLogin, (req, res) => {
 })
 
 router.put('/comment', requireLogin, (req, res) => {
-    // console.log("Comment:-",req.body.comment)
+    // const { text } = req.body;
     const comment = {
-        text: req.body.text,
+        text : req.body.text,
         postedBy: req.user._id
     }
-    // console.log(req.body.text)
-    console.log("Text:-",comment)
     Post.findByIdAndUpdate(req.body.postId, {
-        $push: { comments: comment }
+        $push: {comments: comment}
     }, {
-        new : true
-    }).populate("comments.postedBy", "_id name")
-    .populate("postedBy", "_id name" )
+        new: true
+    }).populate("comments.postedBy", "name")
+    .populate("postedBy", "name" )
     .exec((err, result) => {
         if (err) {
             return res.status(422).json({

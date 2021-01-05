@@ -73,10 +73,20 @@
 
 .post__Comment{
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    /* margin-bottom: 2px; */
+    /* align-items: center; */
 }
 
-.post__Comment > h4{
+
+.post__Comment > .comment{
+    flex-direction: row !important;
+    margin-top: 10px;
+}
+
+
+
+.post__Comment > .comment > h4{
     margin-right: 10px;
 }
 
@@ -112,7 +122,4 @@ button{
     cursor: pointer;
     color: #0095f6;
     outline: none;
-}
-.postButton{
-    
 }
