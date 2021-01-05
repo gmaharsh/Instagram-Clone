@@ -62,7 +62,9 @@ function Login() {
                         />
                         <button onClick={getData}>Sign In</button>
                     </form>
-                    <p>Forgot your password?</p>
+                    <Link to="/reset">
+                        <p>Forgot your password?</p>
+                    </Link>
                 </div>
                 <div className="signup__form">
                     <p>Don't have account?</p>

@@ -98,7 +98,7 @@ router.post('/reset-password', (req, res) => {
                         subject: 'Reset Your Password',
                         html: `<b>Reset Your Password</b>
                          <p>You have requested to reset your password</p> 
-                         <p>Kindly click the <a href="http://localhost:3000/reset/${token}">link</a>to reset your password, The link would expire in 1 hour.</p>`
+                         <p>Kindly click the <a href="http://localhost:3000/reset/${token}">link</a> to reset your password, The link would expire in 1 hour.</p>`
                     })
                     res.json({
                         message: "Check your email"

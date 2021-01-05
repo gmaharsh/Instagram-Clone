@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 import { actionTypes } from './reducers/userReducer';
 import UserProfile from './Components/Profile/UserProfile/UserProfile';
 import SubscribedPost from './Components/Home/SubscribedPost/SubscribedPost';
+import ResetPassword from './Components/Login/ResetPassword/ResetPassword';
 
 function App() {
 
@@ -39,35 +40,41 @@ function App() {
             <Route exact path="/login">
               <Login />
             </Route>
+            <Route exact path="/reset">
+              <ResetPassword />
+            </Route>
           </Switch>
         ) :( 
             <Switch>
-            <Route path="/login">
+              <Route path="/login">
                 <Login />
-            </Route>
-            <Route path="/signup">
+              </Route>
+              <Route path="/signup">
                 <Signup />
-            </Route>
-            <Route exact path="/post">
-              <Header />
-              <Post />
-            </Route>
-            <Route exact path="/profile">
+              </Route>
+              <Route path="/reset-password">
+                <Signup />
+              </Route>
+              <Route exact path="/post">
+                <Header />
+                <Post />
+              </Route>
+              <Route exact path="/profile">
                 <Header />
                 <Profile />
               </Route>
-            <Route path="/profile/:userId">
+              <Route path="/profile/:userId">
                 <Header />
                 <UserProfile />
-            </Route>
-            <Route exact path="/">
-              <Header />
-              <Home />
+              </Route>
+              <Route exact path="/">
+                <Header />
+                <Home />
               </Route>
               <Route path="/myfollowersPost">
-              <Header />
-              <SubscribedPost />
-            </Route>
+                <Header />
+                <SubscribedPost />
+              </Route>
             </Switch>
           )}
         </div>
