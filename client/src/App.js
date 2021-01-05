@@ -12,6 +12,7 @@ import { actionTypes } from './reducers/userReducer';
 import UserProfile from './Components/Profile/UserProfile/UserProfile';
 import SubscribedPost from './Components/Home/SubscribedPost/SubscribedPost';
 import ResetPassword from './Components/Login/ResetPassword/ResetPassword';
+import NewPassword from './Components/Login/ResetPassword/NewPassword/NewPassword';
 
 function App() {
 
@@ -54,6 +55,9 @@ function App() {
               </Route>
               <Route path="/reset-password">
                 <Signup />
+              </Route>
+              <Route path="/reset/:token">
+                <NewPassword />
               </Route>
               <Route exact path="/post">
                 <Header />
