@@ -44,11 +44,13 @@
 }
 
 .login__form > form >button{
+    color: white;
     width: 360px;
     border: none;
     border-radius: 5px;
     padding: 10px;
     background-color: #1589ff;
+    color: whitesmoke;
     cursor: pointer;
 }
 

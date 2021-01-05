@@ -3,9 +3,21 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const User = mongoose.model("user")
 const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
-const { JWT_SECRET } = require('./../keys');
+const { JWT_SECRET } = require('./../config/keys');
 const requireLogin = require('../middleware/requireLogin')
+const nodemailer = require('nodemailer');
+const sendgridTransport = require('nodemailer-sendgrid-transport');
+// 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
+
+const transporter = nodemailer.createTransport(sendgridTransport({
+    auth: {
+        api_key:"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",
+    }
+}))
+
+
 
 router.get('/', (req, res) => {
     res.send("Hello From Auth")
@@ -44,6 +56,13 @@ router.post('/signup', (req, res) => {
                 
                 user.save()
                     .then((user) => {
+                        transporter.sendMail({
+                            to: user.email,
+                            from: "gmaharsh2@gmail.com",
+                            subject: 'Welcome to my clone',
+                            text: 'Hope you have get onboarding and nice experience',
+                            html: '<b>Welcome to Instagram</b> <p>Hope you have get onboarding and nice experience</p>'
+                        })
                         res.json({
                             message:"Saved User Successfully"
                         })
@@ -57,7 +76,40 @@ router.post('/signup', (req, res) => {
         })
 })
 
+router.post('/reset-password', (req, res) => {
+    crypto.randomBytes(32, (err, buffer) => {
+        if (err) {
+            console.log(err)
+        }
+        const token = buffer.toString("hex")
+        User.findOne({ email: req.body.email })
+            .then(user => {
+                if (!user) {
+                    return res.status(422).json({
+                        error:"User don't exists with this email"
+                    })
+                }
+                user.resetToken = token;
+                user.expireToken = Date.now() + 3600000;
+                user.save().then((res) => {
+                    transporter.sendMail({
+                        to: user.email,
+                        from: "gmaharsh2@gmail.com",
+                        subject: 'Reset Your Password',
+                        html: `<b>Reset Your Password</b>
+                         <p>You have requested to reset your password</p> 
+                         <p>Kindly click the <a href="http://localhost:3000/reset/${token}">link</a>to reset your password, The link would expire in 1 hour.</p>`
+                    })
+                    res.json({
+                        message: "Check your email"
+                    })
+                })
+            })
+    })
+})
+
 router.post('/signin', (req, res) => {
+    console.log("i am called")
     const { email, password } = req.body;
     if (!email || !password) {
         res.status(422).json({
@@ -74,8 +126,10 @@ router.post('/signin', (req, res) => {
             bcrypt.compare(password, savedUser.password)
                 .then(doMatch => {
                     if (doMatch) {
+                        // console.log(email)
                         const token = jwt.sign({ _id: savedUser._id }, JWT_SECRET)
-                        const{_id,name, email, following, followers, profileImage} = savedUser
+                        const { _id, name, email, following, followers, profileImage } = savedUser
+                        console.log(savedUser)
                         res.json({token, user:{_id, name, email, following, followers, profileImage}})
                     } else {
                         res.status(422).json({

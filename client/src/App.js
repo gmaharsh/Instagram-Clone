@@ -12,8 +12,6 @@ import { actionTypes } from './reducers/userReducer';
 import UserProfile from './Components/Profile/UserProfile/UserProfile';
 import SubscribedPost from './Components/Home/SubscribedPost/SubscribedPost';
 
-
-
 function App() {
 
   const [ {user}, dispatch] = useStateValue()
@@ -31,9 +29,19 @@ function App() {
       <Router>
       <div className="app">
         {!user ? (
-                <Login />
-        ) :( 
           <Switch>
+            <Route exact path="/">
+              <Login />
+            </Route>
+            <Route path="/signup">
+              <Signup />
+            </Route>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+          </Switch>
+        ) :( 
+            <Switch>
             <Route path="/login">
                 <Login />
             </Route>

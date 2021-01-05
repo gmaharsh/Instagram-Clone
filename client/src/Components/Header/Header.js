@@ -9,6 +9,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { Link, useHistory } from 'react-router-dom';
 import { actionTypes } from '../../reducers/userReducer';
 import { useStateValue } from '../../reducers/StateProvider';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 // import { UserContext } from '../../App';
 import PeopleIcon from '@material-ui/icons/People';
 
@@ -68,8 +69,13 @@ function Header() {
                     <FavoriteIcon />
                 </div>
                 <div className="header__item" onClick={signout}>
-                    <Avatar />
+                    <ExitToAppIcon />
                 </div>
+                <Link to='/profile'>
+                    <div className="header__item" >
+                        <Avatar />
+                    </div>
+                </Link>
             </div>
         </div>
     )

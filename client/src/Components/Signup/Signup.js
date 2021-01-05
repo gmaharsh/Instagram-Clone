@@ -32,7 +32,7 @@ function Signup() {
                 if (data.error) {
                     console.log(data.error)
                 } else {
-                    history.push("/signin")
+                    history.push("/login")
                 }
         }).catch(error => console.log(error))
     }, [imageUrl])
@@ -57,7 +57,7 @@ function Signup() {
                     if (data.error) {
                         console.log(data.error)
                     } else {
-                        history.push("/signin")
+                        history.push("/login")
                     }
             }).catch(error => console.log(error))
         } else {

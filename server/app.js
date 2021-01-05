@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
-const PORT = 5000;
 const mongoose = require('mongoose');
-const { MONGO_URI } = require('./keys')
+const PORT = process.env.PORT || 5000;
+const { MONGO_URI } = require('./config/keys')
 
 
 
@@ -13,8 +13,7 @@ require('./models/user');
 app.use(express.json())
 
 //Database Connection
-const connection_url = `mongodb+srv://gmaharsh:Maharsh@1997@cluster0.9gzq7.mongodb.net/<dbname>?retryWrites=true&w=majority`;
-mongoose.connect(connection_url, {
+mongoose.connect(MONGO_URI, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
     useFindAndModify: false
@@ -37,6 +36,13 @@ app.use("/", auth)
 app.use("/", post)
 app.use("/", user)
 
+// if (process.env.NODE_ENV == "production") {
+//     app.use(express.static('client/build'))
+//     const path = require('path')
+//     app.get("*", (req, res) => {
+//         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+//     })
+// }
 
 //Listener
 app.listen(PORT, () => {

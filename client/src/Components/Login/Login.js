@@ -12,6 +12,7 @@ function Login() {
     const [{}, dispatch] = useStateValue();
 
     const getData = (e) => {
+        console.log(email)
         e.preventDefault()
         fetch("/signin", {
             method: "POST",
@@ -25,6 +26,7 @@ function Login() {
         }).then(res => res.json())
             .then(data => {
                 if (data) {
+                    // console.log(data)
                     localStorage.setItem("jwt", data.token)
                     localStorage.setItem("user", JSON.stringify(data.user))
                     dispatch({
