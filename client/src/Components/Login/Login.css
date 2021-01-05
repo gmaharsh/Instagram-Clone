@@ -54,7 +54,7 @@
     cursor: pointer;
 }
 
-.login__form > p{
+.login__form > Link > p{
     margin-top: 20px;
     cursor: pointer;
 }

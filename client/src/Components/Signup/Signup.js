@@ -123,7 +123,7 @@ function Signup() {
             </div>
             <div className="login__form">
                 <p>Have an account?
-                    <Link to="/login">
+                    <Link to="/login" style={{ marginLeft: "10px", cursor:"pointer", color:"#1589ff", textDecoration:"none"}}>
                         Log in
                     </Link></p>
             </div>

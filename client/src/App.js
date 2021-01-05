@@ -44,6 +44,9 @@ function App() {
             <Route exact path="/reset">
               <ResetPassword />
             </Route>
+            <Route path="/reset/:token">
+                <NewPassword />
+            </Route>
           </Switch>
         ) :( 
             <Switch>

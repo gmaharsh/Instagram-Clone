@@ -6,16 +6,18 @@ function NewPassword() {
     const history = useHistory();
     const [password, setPassword] = useState("");
     const { token } = useParams();
-    console.log(token)
-    const getData = (e) => {
+    // console.log(token)
+    const newPassword = (e) => {
         e.preventDefault()
-        fetch("/signin", {
+        console.log(password)
+        fetch("/newpassword", {
             method: "POST",
             headers: {
                 "Content-Type":"application/json"
             },
             body: JSON.stringify({
                 password,
+                token
             })
         }).then(res => res.json())
             .then(data => {
@@ -42,7 +44,7 @@ function NewPassword() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
-                        <button onClick={getData}>Reset Your Password</button>
+                        <button onClick={newPassword}>Reset Your Password</button>
                     </form>
                 </div>
             </div>

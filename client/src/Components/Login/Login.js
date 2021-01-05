@@ -62,13 +62,13 @@ function Login() {
                         />
                         <button onClick={getData}>Sign In</button>
                     </form>
-                    <Link to="/reset">
+                    <Link to="/reset" style={{ marginTop: "20px", cursor:"pointer", color:"black", textDecoration:"none"}}>
                         <p>Forgot your password?</p>
                     </Link>
                 </div>
                 <div className="signup__form">
                     <p>Don't have account?</p>
-                    <Link to="/signup">
+                    <Link to="/signup" style={{ marginLeft: "10px", cursor:"pointer", color:"#1589ff", textDecoration:"none"}}>
                         <p>Sign up</p>
                     </Link>
                 </div>
