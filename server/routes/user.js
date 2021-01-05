@@ -53,6 +53,16 @@ router.put('/follow', requireLogin, (req, res) => {
     })
 })
 
+router.post('/search_users', (req, res) => {
+    let userPattern = new RegExp("^" + req.body.query)  
+    User.find({ email: { $regex: userPattern } })
+        .select("_id email name")
+        .then(user => res.json({
+            user
+        })).catch(err => {
+                console.log(err)
+        })
+})
 
 router.put('/unfollow', requireLogin, (req, res) => {
     console.log(req.body.followId)

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Header.css';
 import HomeIcon from '@material-ui/icons/Home';
 import MessageIcon from '@material-ui/icons/Message';
@@ -12,12 +12,15 @@ import { useStateValue } from '../../reducers/StateProvider';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 // import { UserContext } from '../../App';
 import PeopleIcon from '@material-ui/icons/People';
-
+import { Menu, MenuItem } from '@material-ui/core';
+import Fade from '@material-ui/core/Fade';
 
 
 function Header() {
     
-    const [{} , dispatch] = useStateValue()
+    const [state, dispatch] = useStateValue();
+    const [search, setSearch] = useState("");
+    const [userData, setUserData] = useState([]);
     const history = useHistory();
 
     const signout = () => {
@@ -28,6 +31,35 @@ function Header() {
         })
         history.push("/login")
     }
+
+    const handleClick = (event) => {
+        setSearch(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setSearch(null);
+    };
+
+    // console.log(search)
+
+    const fetchUsers = (query) => {
+        setSearch(query)
+        fetch('/search_users', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                
+            },
+            body: JSON.stringify({
+                query
+            })
+        }).then(res => res.json())
+                .then(results => {
+                    console.log("results of search:-", results.user)
+                    setUserData(results.user)
+        })
+    }
+    console.log(userData)
 
     return (
         <div className="header">
@@ -40,7 +72,33 @@ function Header() {
                 <input
                     type="text"
                     placeholder="Search"
+                    onClick={handleClick}
                 />
+                <Menu
+                    anchorEl={search}
+                    keepMounted
+                    open={Boolean(search)}
+                    onClose={handleClose}
+                    style={{width:"550px"}}
+                    TransitionComponent={Fade}
+
+                >   
+                    <MenuItem value="profile" style={{top:"0", width:"30vh"}}>
+                        <input
+                            type="text"
+                            placeholder="Search users"
+                            onChange={(e) => fetchUsers(e.target.value)}
+                        />
+
+                    </MenuItem>
+                    {userData.map(data => {
+                        return (
+                            <Link to={"/profile/" + data._id} style={{textDecoration: "none", color:"black"}} >
+                                <MenuItem>{data.name}</MenuItem>
+                            </Link>
+                        )
+                    })}
+                </Menu>
             </div>
             <div className="header__items">
                 {/* {renderList() */}
