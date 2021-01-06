@@ -9,14 +9,19 @@ import BookmarkBorderRoundedIcon from '@material-ui/icons/BookmarkBorderRounded'
 import { useStateValue } from '../../reducers/StateProvider';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import { Link } from 'react-router-dom';
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en'
+
 
 function Home() {
 
     const [state, dispatch] = useStateValue();
     const [data, setData] = useState([]);
     const [comment, setComment] = useState("");
-
-    // console.log("State From Home:-", state)
+    var currentdate = new Date();
+    // TimeAgo.addDefaultLocale(en)
+    // const timeAgo = new TimeAgo('en-US')
+    // console.log("Data(Date Testing):-", timeAgo)
 
     useEffect(() => {
         fetch('/allpost', {
@@ -193,7 +198,7 @@ function Home() {
                                             })
                                         }
                                     </div>
-                                    <p>1 day ago</p>
+                                    <p>{item.createdAt && (item.createdAt.split("T")[0])}</p>
                                 </div>
                             </div>
                             <div className="home__addComment">

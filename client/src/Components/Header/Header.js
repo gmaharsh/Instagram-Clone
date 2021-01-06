@@ -83,7 +83,7 @@ function Header() {
                     TransitionComponent={Fade}
 
                 >   
-                    <MenuItem value="profile" style={{top:"0", width:"30vh"}}>
+                    <MenuItem value="profile" style={{top:"0",left:"30%" ,width:"30vh"}}>
                         <input
                             type="text"
                             placeholder="Search users"

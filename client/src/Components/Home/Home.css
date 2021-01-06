@@ -80,6 +80,7 @@
 
 
 .post__Comment > .comment{
+    display: flex;
     flex-direction: row !important;
     margin-top: 10px;
 }
